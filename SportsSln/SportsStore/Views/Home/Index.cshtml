@@ -1,1 +1,25 @@
-﻿<h4>Welcome to SportsStore</h4>
+﻿@model IEnumerable<SportsStore.Models.Product>
+
+    <h2>Products</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th class="text-end">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Category</td>
+                <td>@p.Description</td>
+                <td class="text-end">@p.Price.ToString("c")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
