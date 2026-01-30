@@ -1,0 +1,23 @@
+@model SportsStore.Models.Product
+
+<div class="card card-soft mb-3">
+    <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between gap-3">
+            <div>
+                <h5 class="mb-1 fw-semibold">@Model?.Name</h5>
+                <div class="text-secondary small">
+                    <span class="badge text-bg-light border me-2">@Model?.Category</span>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <div class="fw-bold fs-5">@Model?.Price.ToString("c")</div>
+                <div class="text-secondary small">Giá đã gồm VAT</div>
+            </div>
+        </div>
+
+        <p class="text-secondary mt-3 mb-0">
+            @Model?.Description
+        </p>
+    </div>
+</div>
