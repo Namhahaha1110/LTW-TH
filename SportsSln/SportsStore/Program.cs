@@ -4,6 +4,7 @@ using SportsStore.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

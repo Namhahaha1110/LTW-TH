@@ -8,6 +8,7 @@ namespace SportsStore.Models
             : base(options) { }
 
         public DbSet<Product> Products => Set<Product>();
+        public DbSet<Order> Orders => Set<Order>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
