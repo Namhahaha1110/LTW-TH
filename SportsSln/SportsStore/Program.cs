@@ -6,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
@@ -15,12 +18,26 @@ builder.Services.AddDbContext<StoreDbContext>(opts =>
 var app = builder.Build();
 
 app.UseStaticFiles();
+app.UseSession();
+
+app.MapControllerRoute("catpage",
+    "{category}/Page{productPage:int}",
+    new { Controller = "Home", action = "Index" });
+
+app.MapControllerRoute("page",
+    "Page{productPage:int}",
+    new { Controller = "Home", action = "Index", productPage = 1 });
+
+app.MapControllerRoute("category",
+    "{category}",
+    new { Controller = "Home", action = "Index", productPage = 1 });
 
 app.MapControllerRoute("pagination",
     "Products/Page{productPage}",
-    new { Controller = "Home", action = "Index" });
+    new { Controller = "Home", action = "Index", productPage = 1 });
 
 app.MapDefaultControllerRoute();
+app.MapRazorPages();
 
 SeedData.EnsurePopulated(app);
 

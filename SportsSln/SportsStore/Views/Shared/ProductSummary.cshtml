@@ -16,8 +16,19 @@
             </div>
         </div>
 
-        <p class="text-secondary mt-3 mb-0">
-            @Model?.Description
-        </p>
+        <form id="@Model?.ProductId" asp-page="/Cart" method="post" class="mt-3">
+            <input type="hidden" name="productId" value="@Model?.ProductId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <p class="text-secondary mb-0">
+                    @Model?.Description
+                </p>
+
+                <button type="submit" class="btn btn-success btn-sm">
+                    Add To Cart
+                </button>
+            </div>
+        </form>
     </div>
 </div>
