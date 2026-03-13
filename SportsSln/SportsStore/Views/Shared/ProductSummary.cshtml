@@ -1,12 +1,14 @@
 @model SportsStore.Models.Product
 
-<div class="card card-soft mb-3">
-    <div class="card-body">
+<div class="card card-soft mb-3" data-aos="fade-up">
+    <div class="card-body p-4">
         <div class="d-flex align-items-start justify-content-between gap-3">
             <div>
                 <h5 class="mb-1 fw-semibold">@Model?.Name</h5>
                 <div class="text-secondary small">
-                    <span class="badge bg-light text-dark border me-2">@Model?.Category</span>
+                    <span class="badge rounded-pill bg-light text-dark border me-2">
+                        <i class="bi bi-tag-fill me-1"></i>@Model?.Category
+                    </span>
                 </div>
             </div>
 
@@ -25,8 +27,8 @@
                     @Model?.Description
                 </p>
 
-                <button type="submit" class="btn btn-success btn-sm">
-                    Add To Cart
+                <button type="submit" class="btn btn-success btn-sm rounded-pill px-3">
+                    <i class="bi bi-cart-plus me-1"></i>Add To Cart
                 </button>
             </div>
         </form>
