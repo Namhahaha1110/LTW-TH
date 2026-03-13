@@ -1,11 +1,18 @@
 @page
 @using Microsoft.AspNetCore.Mvc
 
-<div class="text-center">
-    <h2>Thanks!</h2>
-    <p>Thanks for placing order #@OrderId</p>
-    <p>We'll ship your goods as soon as possible.</p>
-    <a class="btn btn-primary" asp-controller="Home">Return to Store</a>
+<div class="text-center py-4">
+    <div class="mx-auto" style="max-width: 520px;">
+        <div class="display-5 text-success mb-3">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h2 class="fw-bold">Thanks!</h2>
+        <p class="text-secondary mb-1">Thanks for placing order #@OrderId</p>
+        <p class="text-secondary mb-4">We'll ship your goods as soon as possible.</p>
+        <a class="btn btn-primary" asp-controller="Home">
+            <i class="bi bi-shop me-1"></i>Return to Store
+        </a>
+    </div>
 </div>
 
 @functions {

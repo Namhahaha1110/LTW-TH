@@ -1,0 +1,53 @@
+body.storefront {
+    background-color: #f5f7fb;
+}
+
+.store-hero {
+    background: linear-gradient(120deg, #2c7be5, #00a8ff);
+    box-shadow: 0 12px 30px rgba(44, 123, 229, 0.25);
+}
+
+.category-card {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+@media (min-width: 992px) {
+    .category-card {
+        position: sticky;
+        top: 92px;
+    }
+}
+
+.category-menu .list-group-item {
+    border: 0;
+    border-radius: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.category-menu .list-group-item.active {
+    background-color: #2c7be5;
+    border-color: #2c7be5;
+}
+
+.card-soft {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(44, 62, 80, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-soft:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(44, 62, 80, 0.12);
+}
+
+.btn-page {
+    min-width: 42px;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}

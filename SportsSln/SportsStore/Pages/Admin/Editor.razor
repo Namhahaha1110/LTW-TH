@@ -1,0 +1,128 @@
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@page "/admin/products/edit/{id:int}"
+@page "/admin/products/create"
+@inherits OwningComponentBase<IStoreRepository>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="mb-0 fw-semibold">
+        <i class="fa-regular fa-pen-to-square me-2"></i>@TitleText Product
+    </h3>
+    <span class="badge @(Id == 0 ? "bg-primary" : "bg-warning text-dark") rounded-pill px-3 py-2">
+        @(Id == 0 ? "New" : $"Editing #{Id}")
+    </span>
+</div>
+
+<EditForm Model="Product" OnValidSubmit="SaveProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="row g-3">
+        <div class="col-12 col-lg-8">
+            @if (Product.ProductId != 0)
+            {
+                <div class="mb-3">
+                    <label class="form-label">ID</label>
+                    <input class="form-control" disabled value="@Product.ProductId" />
+                </div>
+            }
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="Product.Name" />
+                <ValidationMessage class="text-danger small" For="@(() => Product.Name)" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="4" @bind-Value="Product.Description" />
+                <ValidationMessage class="text-danger small" For="@(() => Product.Description)" />
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <InputSelect class="form-select" @bind-Value="Product.Category">
+                    <option value="">-- Chọn category --</option>
+                    @foreach (string category in CategoryOptions)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </InputSelect>
+                <ValidationMessage class="text-danger small" For="@(() => Product.Category)" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <InputNumber class="form-control" @bind-Value="Product.Price" />
+                <ValidationMessage class="text-danger small" For="@(() => Product.Price)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 pt-2 border-top">
+        <button type="submit" class="btn btn-@ThemeColor me-2">
+            <i class="fa-regular fa-floppy-disk me-1"></i>Save
+        </button>
+        <NavLink class="btn btn-secondary" href="/admin/products">Cancel</NavLink>
+    </div>
+</EditForm>
+
+@code {
+    public IStoreRepository Repository => Service;
+
+    [Inject]
+    public NavigationManager? NavManager { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public Product Product { get; set; } = new Product();
+    public IEnumerable<string> CategoryOptions { get; set; } = Enumerable.Empty<string>();
+
+    protected override void OnParametersSet()
+    {
+        if (Id == 0)
+        {
+            Product = new Product();
+        }
+        else
+        {
+            Product = Repository.Products.FirstOrDefault(p => p.ProductId == Id) ?? new Product();
+        }
+
+        CategoryOptions = Repository.Products
+            .Select(p => p.Category)
+            .Where(c => !string.IsNullOrWhiteSpace(c))
+            .Distinct()
+            .OrderBy(c => c)
+            .ToList();
+
+        if (!string.IsNullOrWhiteSpace(Product.Category)
+            && !CategoryOptions.Contains(Product.Category, StringComparer.OrdinalIgnoreCase))
+        {
+            CategoryOptions = CategoryOptions
+                .Append(Product.Category)
+                .OrderBy(c => c)
+                .ToList();
+        }
+    }
+
+    public void SaveProduct()
+    {
+        if (Id == 0)
+        {
+            Repository.CreateProduct(Product);
+        }
+        else
+        {
+            Repository.SaveProduct(Product);
+        }
+
+        NavManager?.NavigateTo("/admin/products");
+    }
+
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+}

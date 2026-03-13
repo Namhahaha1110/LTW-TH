@@ -1,47 +1,57 @@
 @model Order
 
-<h2>Check out now</h2>
-<p>Please enter your details, and we'll ship your goods right away!</p>
+<h2 class="fw-bold mb-1"><i class="bi bi-credit-card me-2"></i>Check out now</h2>
+<p class="text-secondary mb-4">Please enter your details, and we'll ship your goods right away!</p>
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-action="Checkout" method="post">
-    <h3>Ship to</h3>
-    <div class="form-group">
-        <label>Name:</label><input asp-for="Name" class="form-control" />
+    <h5 class="fw-semibold mb-3">Ship to</h5>
+
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <input asp-for="Name" class="form-control" />
     </div>
 
-    <h3>Address</h3>
-    <div class="form-group">
-        <label>Line 1:</label><input asp-for="Line1" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Line 2:</label><input asp-for="Line2" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Line 3:</label><input asp-for="Line3" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>City:</label><input asp-for="City" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>State:</label><input asp-for="State" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Zip:</label><input asp-for="Zip" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Country:</label><input asp-for="Country" class="form-control" />
+    <h5 class="fw-semibold mb-3 mt-4">Address</h5>
+    <div class="row g-3">
+        <div class="col-12">
+            <label class="form-label">Line 1:</label>
+            <input asp-for="Line1" class="form-control" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">Line 2:</label>
+            <input asp-for="Line2" class="form-control" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">Line 3:</label>
+            <input asp-for="Line3" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">City:</label>
+            <input asp-for="City" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">State:</label>
+            <input asp-for="State" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Zip:</label>
+            <input asp-for="Zip" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Country:</label>
+            <input asp-for="Country" class="form-control" />
+        </div>
     </div>
 
-    <h3>Options</h3>
-    <div class="checkbox">
-        <label>
-            <input asp-for="GiftWrap" /> Gift wrap these items
-        </label>
+    <h5 class="fw-semibold mb-3 mt-4">Options</h5>
+    <div class="form-check mb-4">
+        <input asp-for="GiftWrap" class="form-check-input" />
+        <label asp-for="GiftWrap" class="form-check-label">Gift wrap these items</label>
     </div>
 
     <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Complete Order" />
+        <input class="btn btn-primary px-4" type="submit" value="Complete Order" />
     </div>
 </form>
