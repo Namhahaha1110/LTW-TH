@@ -1,0 +1,66 @@
+@page "/admin/orders"
+@inherits OwningComponentBase<IOrderRepository>
+
+<div class="d-flex flex-column flex-lg-row justify-content-lg-between align-items-lg-center mb-4 gap-3">
+    <div>
+        <h3 class="mb-1 fw-semibold"><i class="fa-solid fa-truck-fast me-2"></i>Order Management</h3>
+        <div class="text-muted">Theo dõi và cập nhật trạng thái giao hàng</div>
+    </div>
+    <button class="btn btn-outline-primary" @onclick="@(e => UpdateData())">
+        <i class="fa-solid fa-rotate-right me-1"></i>Refresh Data
+    </button>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6">
+        <div class="border rounded-3 p-3 h-100 bg-white">
+            <div class="small text-muted text-uppercase">Unshipped Orders</div>
+            <div class="h4 mb-0 fw-semibold">@UnshippedOrders.Count()</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="border rounded-3 p-3 h-100 bg-white">
+            <div class="small text-muted text-uppercase">Shipped Orders</div>
+            <div class="h4 mb-0 fw-semibold">@ShippedOrders.Count()</div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4">
+    <OrderTable TableTitle="Unshipped Orders" Orders="UnshippedOrders" ButtonLabel="Ship" ButtonClass="btn-success" OrderSelected="ShipOrder" />
+</div>
+
+<OrderTable TableTitle="Shipped Orders" Orders="ShippedOrders" ButtonLabel="Reset" ButtonClass="btn-secondary" OrderSelected="ResetOrder" />
+
+@code {
+    public IOrderRepository Repository => Service;
+
+    public IEnumerable<Order> AllOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> UnshippedOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> ShippedOrders { get; set; } = Enumerable.Empty<Order>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        AllOrders = await Repository.Orders.ToListAsync();
+        UnshippedOrders = AllOrders.Where(o => !o.Shipped);
+        ShippedOrders = AllOrders.Where(o => o.Shipped);
+    }
+
+    public void ShipOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    private void UpdateOrder(int id, bool shipValue)
+    {
+        Order? order = Repository.Orders.FirstOrDefault(o => o.OrderID == id);
+        if (order != null)
+        {
+            order.Shipped = shipValue;
+            Repository.SaveOrder(order);
+        }
+    }
+}

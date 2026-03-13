@@ -4,10 +4,15 @@
     ViewData["Title"] = "Products";
 }
 
-<div class="d-flex align-items-center justify-content-between mb-3">
+<div class="store-hero p-4 p-md-5 rounded-4 mb-4 text-white" data-aos="zoom-in">
+    <h2 class="fw-bold mb-2">Welcome to SportsStore</h2>
+    <p class="mb-0">Khám phá sản phẩm thể thao chất lượng với nhiều danh mục phù hợp cho mọi nhu cầu.</p>
+</div>
+
+<div class="d-flex align-items-center justify-content-between mb-3" data-aos="fade-up">
     <div>
         <h3 class="fw-bold mb-1">Sản phẩm</h3>
-        <div class="text-secondary">Hiển thị theo trang (PageSize = 4)</div>
+        <div class="text-secondary">Danh mục: @(string.IsNullOrEmpty(Model?.CurrentCategory) ? "Tất cả" : Model.CurrentCategory)</div>
     </div>
 </div>
 
@@ -20,8 +25,8 @@
     <div page-model="@Model?.PagingInfo"
          page-action="Index"
          page-classes-enabled="true"
-         page-class="btn btn-outline-dark btn-page"
-         page-class-normal="btn-outline-dark"
+         page-class="btn btn-outline-primary btn-page"
+         page-class-normal="btn-outline-primary"
          page-class-selected="btn-primary"
          page-url-category="@(Model?.CurrentCategory ?? string.Empty)"
          class="btn-group gap-2">

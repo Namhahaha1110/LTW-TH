@@ -1,0 +1,62 @@
+@using Microsoft.AspNetCore.Components.Routing
+@inherits LayoutComponentBase
+
+<div class="admin-shell page">
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" style="background: #1f2937;">
+        <div class="container-fluid">
+            <h1 class="navbar-brand navbar-brand-autodark mb-3 text-white">
+                <i class="fa-solid fa-shield-halved me-2"></i>SportsStore Admin
+            </h1>
+
+            <div class="navbar-collapse show">
+                <ul class="navbar-nav pt-lg-2">
+                    <li class="nav-item mb-1">
+                        <NavLink class="nav-link" href="/admin/products" ActiveClass="active" Match="NavLinkMatch.Prefix">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="fa-solid fa-box-open"></i>
+                            </span>
+                            <span class="nav-link-title">Products</span>
+                        </NavLink>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <NavLink class="nav-link" href="/admin/orders" ActiveClass="active" Match="NavLinkMatch.Prefix">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </span>
+                            <span class="nav-link-title">Orders</span>
+                        </NavLink>
+                    </li>
+                </ul>
+
+                <div class="mt-auto pt-3">
+                    <a class="btn btn-light w-100" href="/">
+                        <i class="fa-solid fa-store me-1"></i>Về trang bán hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="page-wrapper">
+        <header class="navbar navbar-expand-md d-none d-lg-flex d-print-none border-bottom bg-white shadow-sm">
+            <div class="container-xl">
+                <div class="navbar-nav flex-row order-md-last"></div>
+                <div class="collapse navbar-collapse">
+                    <div class="text-muted">
+                        Bảng điều khiển quản trị sản phẩm và đơn hàng
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-body">
+            <div class="container-xl py-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        @Body
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
